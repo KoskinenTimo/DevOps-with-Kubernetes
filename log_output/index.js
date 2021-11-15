@@ -6,7 +6,7 @@ const logRandomString = () => {
     const ts = Math.round((new Date()).getTime() / 1000);
     const date = new Date();
     const timeStamp = date.toISOString();
-    console.log(`${timeStamp}: ${string}`);
+    console.log(`${timeStamp}: ${string} v0.2`);
   }, 5000)
 }
 
