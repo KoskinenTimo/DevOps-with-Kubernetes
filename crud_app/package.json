@@ -1,0 +1,12 @@
+{
+  "name": "crud_app",
+  "version": "1.0.0",
+  "description": "simple app for CRUD operations",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Timo Koskinen",
+  "license": "ISC"
+}
