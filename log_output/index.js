@@ -1,13 +1,17 @@
-const { v4: uuidv4 } = require('uuid');
+const http = require('http');
 
-const logRandomString = () => {
-  const string = uuidv4();
-  setInterval(() => {
-    const ts = Math.round((new Date()).getTime() / 1000);
+const server = http.createServer((req,res) => {
+  if (req.url == '/') {
     const date = new Date();
     const timeStamp = date.toISOString();
-    console.log(`${timeStamp}: ${string} v0.2`);
-  }, 5000)
-}
+    res.writeHead(200, {'Content-Type': 'text/html'});
+    res.write(
+      `<h1>${timeStamp} Exercise 1.07</h1>`
+    );
+    res.end();
+  }
+});
 
-logRandomString();
+server.listen(3001, () => {
+  console.log('Server started in port 3001');
+});

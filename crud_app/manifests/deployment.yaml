@@ -1,7 +1,7 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: crud-app
+  name: crud-app-dep
 spec:
   replicas: 1
   selector:
@@ -14,4 +14,4 @@ spec:
     spec:
       containers:
         - name: crud-app
-          image: koskinentht/crud-app:v0.2
+          image: koskinentht/crud-app:v0.5

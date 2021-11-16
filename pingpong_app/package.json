@@ -1,7 +1,7 @@
 {
-  "name": "crud_app",
+  "name": "pingpong_app",
   "version": "1.0.0",
-  "description": "simple app for CRUD operations",
+  "description": "",
   "main": "index.js",
   "scripts": {
     "start": "node index.js",
