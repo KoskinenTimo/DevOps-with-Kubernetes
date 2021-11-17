@@ -1,1 +1,3 @@
-volumes are deployed from /log-ouput/manifests, not sure where to put them
+to deploy:
+- volumes and ingress deployment under /volumes_and_ingress/manifests
+- app deployments inside their folders under /manifests
