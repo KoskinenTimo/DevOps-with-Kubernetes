@@ -1,0 +1,1 @@
+volumes are deployed from /log-ouput/manifests, not sure where to put them
