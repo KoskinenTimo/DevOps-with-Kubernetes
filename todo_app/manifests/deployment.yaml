@@ -23,8 +23,10 @@ spec:
           - name: shared-data
             mountPath: /usr/src/app/files
         - name: log-output-reader
-          image: koskinentht/log-output-reader:v0.7
+          image: koskinentht/log-output-reader:v1.01
           volumeMounts:
           - name: shared-data
             mountPath: /usr/src/app/files
+        - name: todo-backend
+          image: koskinentht/todo-backend:v0.1
           

@@ -1,3 +1,4 @@
+const { default: axios } = require('axios');
 const express = require('express');
 const app = express();
 const fs = require('fs');
@@ -16,10 +17,11 @@ app.use( async (req,res, next) => {
   let timestamp = '';
   let visits = '';
   const id = uuidv4();
-  try {      
-    if (fs.existsSync(visitsPath)) {
-      const visitsData = fs.readFileSync(visitsPath);
-      visits = visitsData;
+
+  try {
+    const visitsResponse = await axios('http://pingpong-app-svc:3456/visits');
+    if (visitsResponse && visitsResponse.data) {
+      visits = visitsResponse.data.visits;
     }
     if (fs.existsSync(timeStampsPath)) {
       const timeStampData = fs.readFileSync(timeStampsPath);  
