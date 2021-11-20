@@ -3,6 +3,6 @@ const app = require('./app');
 
 const server = http.createServer(app)
 
-server.listen(3002, () => {
-  console.log('Server started in port 3002');
+server.listen(3001, () => {
+  console.log('Server started in port 3001');
 });

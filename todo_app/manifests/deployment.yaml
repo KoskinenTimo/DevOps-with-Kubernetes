@@ -1,32 +1,33 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: log-output-dep
+  name: todo-app-dep
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: log-output
+      app: todo-app
   template:
     metadata:
       labels:
-        app: log-output
+        app: todo-app
     spec:
       volumes:
         - name: shared-data
           persistentVolumeClaim:
             claimName: data-claim
       containers:
-        - name: log-output-writer
-          image: koskinentht/log-output-writer:v0.7
+        - name: todo-back
+          image: koskinentht/todo-back:v1.0
           volumeMounts:
           - name: shared-data
             mountPath: /usr/src/app/files
-        - name: log-output-reader
-          image: koskinentht/log-output-reader:v1.01
-          volumeMounts:
-          - name: shared-data
-            mountPath: /usr/src/app/files
-        - name: todo-backend
-          image: koskinentht/todo-backend:v0.1
+
+        - name: todo-front
+          image: koskinentht/todo-front:v1.0
           
+        - name: todo-timestamp
+          image: koskinentht/todo-timestamp:v1.0
+          volumeMounts:
+          - name: shared-data
+            mountPath: /usr/src/app/files

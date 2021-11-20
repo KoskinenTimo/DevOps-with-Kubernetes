@@ -18,7 +18,7 @@ spec:
 #            claimName: data-claim
       containers:
         - name: pingpong-app
-          image: koskinentht/pingpong-app:v0.3
+          image: koskinentht/pingpong-app:v1.0
 #          volumeMounts:
 #          - name: shared-visits
 #            mountPath: /usr/src/app/files

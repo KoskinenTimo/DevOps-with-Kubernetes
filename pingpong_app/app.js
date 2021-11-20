@@ -1,5 +1,7 @@
 const express = require('express');
+const cors = require('cors')
 const app = express();
+
 const { promises: fsp } = require('fs');
 const fs = require('fs');
 const path = require('path')
@@ -7,11 +9,11 @@ const path = require('path')
 const directory = path.join('/', 'usr', 'src', 'app', 'files')
 const filePath = path.join(directory, 'visits.txt')
 
+app.use(cors())
 
 let visits = 0;
 
-
-app.get('/pingpong', async (req,res) => {
+app.get('/pingapi/pingpong', async (req,res) => {
   try {
     // const exists = fs.existsSync(filePath);
     // if (exists) {
@@ -31,7 +33,7 @@ app.get('/pingpong', async (req,res) => {
   }
 });
 
-app.get('/visits', (req,res) => {
+app.get('/pingapi/visits', (req,res) => {
   res.json({ visits });
 });
 
