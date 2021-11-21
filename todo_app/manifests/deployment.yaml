@@ -27,8 +27,14 @@ spec:
             mountPath: /usr/src/app/files
 
         - name: todo-front
-          image: koskinentht/todo-front:v1.0
+          image: koskinentht/todo-front:v1.1
           imagePullPolicy: "Always"
+          env:
+            - name: REACT_APP_MESSAGE
+              valueFrom:
+                configMapKeyRef:
+                  name: todo-app-variables
+                  key: MESSAGE
           
         - name: todo-timestamp
           image: koskinentht/todo-timestamp:v1.0

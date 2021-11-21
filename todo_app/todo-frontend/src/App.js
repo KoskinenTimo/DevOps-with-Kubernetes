@@ -4,12 +4,14 @@ import Visits from './Visits';
 import ImageLoader from './ImageLoader';
 import TodoInput from './TodoInput';
 import TodoList from './TodoList';
+import Greeting from './Greeting';
 
 function App() {
   const [ todos, setTodos ] = useState([]);
   
   return (
     <div>
+      <Greeting />
       <TimeStamp />
       <Visits />
       <ImageLoader />
