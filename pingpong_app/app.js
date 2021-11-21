@@ -2,12 +2,7 @@ const express = require('express');
 const cors = require('cors')
 const app = express();
 
-const { promises: fsp } = require('fs');
-const fs = require('fs');
-const path = require('path')
-
-const directory = path.join('/', 'usr', 'src', 'app', 'files')
-const filePath = path.join(directory, 'visits.txt')
+// const fs = require('fs');
 
 app.use(cors())
 
@@ -23,7 +18,6 @@ app.get('/pingapi/pingpong', async (req,res) => {
     // }
     // visits++
     // await fsp.writeFile(filePath, visits.toString())
-
     visits++
     res.set('Content-Type', 'text/html')
     res.send(Buffer.from(`<h1>Visits: ${visits}</h1>`));
@@ -34,7 +28,7 @@ app.get('/pingapi/pingpong', async (req,res) => {
 });
 
 app.get('/pingapi/visits', (req,res) => {
-  res.json({ visits });
+  res.status(200).send(visits.toString());
 });
 
 app.use((req,res,next) => {

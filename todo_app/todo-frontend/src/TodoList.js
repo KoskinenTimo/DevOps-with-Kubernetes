@@ -3,11 +3,11 @@ import axios from "axios";
 
 
 const TodoList = ({ todos, setTodos}) => {
-  const todoURI = process.env.REACT_APP_API_TODO_URI;
+  const todoURL = process.env.REACT_APP_API_TODO_URL;
 
   useEffect(() => {
     console.log('gettings todos from todo api');
-    axios(todoURI)
+    axios(todoURL)
       .then(res => {
         const todosList = res.data;
         setTodos(todosList)

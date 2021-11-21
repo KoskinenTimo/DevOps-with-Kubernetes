@@ -3,7 +3,7 @@ import axios from "axios";
 
 const ImageLoader = () => {
   const [ image, setImage ] = useState(null);  
-  const todoURI = process.env.REACT_APP_API_TODO_URI;
+  const todoURL = process.env.REACT_APP_API_TODO_URL;
 
   useEffect(() => {
     getImage();
@@ -12,7 +12,7 @@ const ImageLoader = () => {
 
   const getImage = () => {
     console.log('getting image from todo api');
-    axios(`${todoURI}/randomimg`, {responseType: 'blob'})
+    axios(`${todoURL}/randomimg`, {responseType: 'blob'})
       .then(res => {
         console.log('setting image url to state');
         const imgURL = URL.createObjectURL(res.data);

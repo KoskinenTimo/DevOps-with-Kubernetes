@@ -11,7 +11,6 @@ app.use(express.json());
 
 const directory = path.join('/', 'usr', 'src', 'app', 'files')
 const imagePath = path.join(directory, 'image.jpg')
-const timeStampPath = path.join(directory, 'timestamp.txt')
 
 let todos = [
   'this is the first TODO',
@@ -30,11 +29,6 @@ app.post("/todoapi", (req,res) => {
   }
   res.send(todo);
 });
-
-app.get('/todoapi/timestamp', (req,res) => {
-  const text = fs.readFileSync(timeStampPath);
-  res.send(text)
-})
 
 app.get('/todoapi/randomimg', async (req,res) => {
   if (!fs.existsSync(imagePath)) {

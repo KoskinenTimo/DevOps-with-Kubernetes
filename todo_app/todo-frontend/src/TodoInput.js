@@ -3,12 +3,12 @@ import axios from "axios";
 
 const TodoInput = ({ todos, setTodos }) => {
   const [ todo, setTodo ] = useState('');
-  const todoURI = process.env.REACT_APP_API_TODO_URI;
+  const todoURL = process.env.REACT_APP_API_TODO_URL;
   console.log(todo);
 
   const submitTodo = (e) => {
     e.preventDefault();
-    axios.post(todoURI, { todo })
+    axios.post(todoURL, { todo })
       .then(res => {
         const newTodosList = todos.concat(todo)
         setTodos(newTodosList);
