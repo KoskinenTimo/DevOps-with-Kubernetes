@@ -3,7 +3,7 @@ const fs = require('fs')
 const cors = require('cors')
 const path = require('path')
 const axios = require('axios')
-
+const Todo = require('./models/todos')
 const app = express();
 
 app.use(cors())
@@ -12,22 +12,32 @@ app.use(express.json());
 const directory = path.join('/', 'usr', 'src', 'app', 'files')
 const imagePath = path.join(directory, 'image.jpg')
 
-let todos = [
-  'this is the first TODO',
-  "this is the second TODO"
-];
 
-app.get("/todoapi", (req,res) => {
+
+app.get("/todoapi", async (req,res) => {
+  let todos = await Todo.findAll()
+  if (!todos.length) {
+    await Todo.create({ text: "First todo!"});
+    await Todo.create({ text: "Second todo!"})
+  }
+  todos = await Todo.findAll()
   res.send(todos);
 });
 
-app.post("/todoapi", (req,res) => {
+app.post("/todoapi", async (req,res) => {
   const { todo } = req.body;
-  console.log(todo);
-  if (todo && todo.length) {
-    todos = todos.concat(todo);    
+  if (todo) {
+    try {
+      const savedTodo = await Todo.create({ text: todo});
+      res.send(savedTodo);
+    } catch (error) {
+      res.status(500).end()
+      console.log(error);
+    }
+  } else {
+    res.status(400).end();
   }
-  res.send(todo);
+
 });
 
 app.get('/todoapi/randomimg', async (req,res) => {
@@ -36,6 +46,6 @@ app.get('/todoapi/randomimg', async (req,res) => {
     res.data.pipe(fs.createWriteStream(imagePath));
   }
   res.sendFile(imagePath);
-})
+});
 
 module.exports = app;

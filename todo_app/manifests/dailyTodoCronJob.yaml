@@ -1,0 +1,16 @@
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: todo-script
+  namespace: todo-namespace
+spec:
+  schedule: "37 4 * * *"
+  jobTemplate:
+    spec:
+      template:
+        spec:
+          containers:
+          - name: todo-script
+            image: koskinentht/todo-script:v1.2
+            imagePullPolicy: IfNotPresent
+          restartPolicy: OnFailure

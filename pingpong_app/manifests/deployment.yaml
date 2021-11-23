@@ -14,14 +14,28 @@ spec:
       labels:
         app: pingpong-app
     spec:
-#      volumes:
-#        - name: shared-visits
-#          persistentVolumeClaim:
-#            claimName: data-claim
       containers:
         - name: pingpong-app
-          image: koskinentht/pingpong-app:v1.0
+          image: koskinentht/pingpong-app:v1.1
           imagePullPolicy: "Always"
-#          volumeMounts:
-#          - name: shared-visits
-#            mountPath: /usr/src/app/files
+          env:
+            - name: POSTGRES_HOST
+              valueFrom:
+                configMapKeyRef:
+                  name: todo-app-variables
+                  key: PING_POSTGRES_HOST
+            - name: POSTGRES_USER
+              valueFrom:
+                configMapKeyRef:
+                  name: todo-app-variables
+                  key: POSTGRES_USER
+            - name: POSTGRES_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: todo-namespace-secrets
+                  key: POSTGRES_PASSWORD
+            - name: POSTGRES_DB
+              valueFrom:
+                configMapKeyRef:
+                  name: todo-app-variables
+                  key: POSTGRES_DB

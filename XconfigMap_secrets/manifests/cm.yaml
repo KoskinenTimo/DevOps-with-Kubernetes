@@ -1,0 +1,14 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: todo-app-variables
+  namespace: todo-namespace
+data:
+  MESSAGE: Hello
+  PING_POSTGRES_HOST: pingpong-postgres
+  TODO_POSTGRES_HOST: todo-postgres
+  POSTGRES_USER: user
+  POSTGRES_DB: postgresdb
+  PGDATA: /var/lib/postgresql/data/pgdata
+  MONGO_INITDB_ROOT_USERNAME: root
+  MONGO_INITDB_DATABASE: mongodb

@@ -10,7 +10,7 @@ const TodoInput = ({ todos, setTodos }) => {
     e.preventDefault();
     axios.post(todoURL, { todo })
       .then(res => {
-        const newTodosList = todos.concat(todo)
+        const newTodosList = todos.concat(res.data)
         setTodos(newTodosList);
         setTodo('');
       })

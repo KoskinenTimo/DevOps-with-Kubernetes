@@ -20,14 +20,34 @@ spec:
             claimName: data-claim
       containers:
         - name: todo-back
-          image: koskinentht/todo-back:v1.0
+          image: koskinentht/todo-back:v1.2
           imagePullPolicy: "Always"
           volumeMounts:
           - name: shared-data
             mountPath: /usr/src/app/files
-
+          env:
+            - name: POSTGRES_HOST
+              valueFrom:
+                configMapKeyRef:
+                  name: todo-app-variables
+                  key: TODO_POSTGRES_HOST
+            - name: POSTGRES_USER
+              valueFrom:
+                configMapKeyRef:
+                  name: todo-app-variables
+                  key: POSTGRES_USER
+            - name: POSTGRES_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: todo-namespace-secrets
+                  key: POSTGRES_PASSWORD
+            - name: POSTGRES_DB
+              valueFrom:
+                configMapKeyRef:
+                  name: todo-app-variables
+                  key: POSTGRES_DB
         - name: todo-front
-          image: koskinentht/todo-front:v1.1
+          image: koskinentht/todo-front:v1.2
           imagePullPolicy: "Always"
           env:
             - name: REACT_APP_MESSAGE

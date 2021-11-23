@@ -1,33 +1,33 @@
 const express = require('express');
 const cors = require('cors')
+const Visit = require('./models/visits')
+
 const app = express();
-
-// const fs = require('fs');
-
 app.use(cors())
-
-let visits = 0;
 
 app.get('/pingapi/pingpong', async (req,res) => {
   try {
-    // const exists = fs.existsSync(filePath);
-    // if (exists) {
-    //   await fsp.readFile(filePath,'utf-8', (err,data) => {
-    //     visits = parseInt(data);
-    //     });
-    // }
-    // visits++
-    // await fsp.writeFile(filePath, visits.toString())
-    visits++
+    await Visit.create({ date: new Date()})
+    const response = await Visit.findAll({});
+    console.log(response.length);
     res.set('Content-Type', 'text/html')
-    res.send(Buffer.from(`<h1>Visits: ${visits}</h1>`));
+    res.send(Buffer.from(`<h1>Visits: ${response.length}</h1>`));
   } catch (error) {
     console.log(error);
     res.status(500).send(error);
   }
 });
 
-app.get('/pingapi/visits', (req,res) => {
+app.get('/pingapi/visits', async (req,res) => {
+  let visits = 0;
+  try {
+    const response = await Visit.findAll({});
+    if (response.length) {
+      visits = response.length
+    }
+  } catch (error) {
+    console.log(error)
+  }
   res.status(200).send(visits.toString());
 });
 

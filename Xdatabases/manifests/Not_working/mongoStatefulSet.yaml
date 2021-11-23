@@ -1,0 +1,59 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: todo-mongo-ss
+spec:
+  serviceName: todo-mongo-svc
+  replicas: 1
+  selector:
+    matchLabels:
+      app: todo-mongo
+  template:
+    metadata:
+      namespace: todo-namespace
+      labels:
+        app: todo-mongo
+    spec:
+      containers:
+        - name: todo-mongo
+          image: mongo
+          volumeMounts:
+            - name: todo-data             
+              mountPath: /data/db   
+            - name: mysql-initdb
+              mountPath: docker-entrypoint-initdb.d
+          ports:
+            - containerPort: 27017
+              name: web
+
+
+      volumes:
+        - name: mysql-initdb
+          persistentVolumeClaim:
+            claimName: mysql-initdb-pv-claim
+  volumeClaimTemplates:
+    - metadata:
+        name: todo-data
+      spec:
+        accessModes: ["ReadWriteOnce"]
+        storageClassName: local-path
+        resources:
+          requests:
+            storage: 100Mi
+
+          # env:
+          # - name: MONGO_INITDB_ROOT_USERNAME
+          #   valueFrom:
+          #     configMapKeyRef:
+          #       name: todo-app-variables
+          #       key: MONGO_INITDB_ROOT_USERNAME
+          # - name: MONGO_INITDB_ROOT_PASSWORD
+          #   valueFrom:
+          #     secretKeyRef:
+          #       name: todo-namespace-secrets
+          #       key: MONGO_INITDB_ROOT_PASSWORD
+          # - name: MONGO_INITDB_DATABASE
+          #   valueFrom:
+          #     configMapKeyRef:
+          #       name: todo-app-variables
+          #       key: MONGO_INITDB_DATABASE

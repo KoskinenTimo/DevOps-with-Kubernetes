@@ -18,7 +18,7 @@ const TodoList = ({ todos, setTodos}) => {
   
   return (
     <ul>
-      {todos.map((todo,index) => <li key={index}>{todo}</li>)}
+      {todos.map(todo => <li key={todo.id}>{todo.text}</li>)}
     </ul>
   )
 }
