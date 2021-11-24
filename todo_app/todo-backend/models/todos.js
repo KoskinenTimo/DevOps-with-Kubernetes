@@ -12,6 +12,12 @@ const Visit = db.define('todos', {
     type: Sequelize.STRING,
     allowNull: false,
     unique: true,
+    validate: {
+      len: {
+        args: [1,140],
+        msg: "text must be between 1-140 characters in length"
+      }
+    }
   }
 })
 

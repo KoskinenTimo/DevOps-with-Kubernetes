@@ -5,9 +5,13 @@ const path = require('path')
 const axios = require('axios')
 const Todo = require('./models/todos')
 const app = express();
+const morgan = require('morgan')
+
+
 
 app.use(cors())
 app.use(express.json());
+app.use(morgan('combined'));
 
 const directory = path.join('/', 'usr', 'src', 'app', 'files')
 const imagePath = path.join(directory, 'image.jpg')
@@ -25,17 +29,17 @@ app.get("/todoapi", async (req,res) => {
 });
 
 app.post("/todoapi", async (req,res) => {
-  const { todo } = req.body;
-  if (todo) {
-    try {
-      const savedTodo = await Todo.create({ text: todo});
-      res.send(savedTodo);
-    } catch (error) {
-      res.status(500).end()
-      console.log(error);
+  try {
+    const savedTodo = await Todo.create({ text: req.body.todo});
+    console.log(savedTodo.dataValues);
+    res.send(savedTodo);
+  } catch (error) {
+    if (error.name === 'SequelizeValidationError' || 
+        error.name === 'SequelizeUniqueConstraintError') {
+          console.log({error:error.errors[0].message});
+      return res.status(400).json({error:error.errors[0].message});
     }
-  } else {
-    res.status(400).end();
+    res.status(500).end();
   }
 
 });

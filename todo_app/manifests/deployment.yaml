@@ -20,7 +20,7 @@ spec:
             claimName: data-claim
       containers:
         - name: todo-back
-          image: koskinentht/todo-back:v1.2
+          image: koskinentht/todo-back:v1.3
           imagePullPolicy: "Always"
           volumeMounts:
           - name: shared-data

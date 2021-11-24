@@ -5,6 +5,8 @@ metadata:
   namespace: todo-namespace
 spec:
   schedule: "37 4 * * *"
+  successfulJobsHistoryLimit: 1
+  failedJobsHistoryLimit: 1
   jobTemplate:
     spec:
       template:
