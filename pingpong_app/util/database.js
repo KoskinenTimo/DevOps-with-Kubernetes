@@ -1,5 +1,9 @@
 const Sequelize = require('sequelize');
 
+console.log(process.env.POSTGRES_DB);
+console.log(process.env.POSTGRES_USER);
+console.log(process.env.POSTGRES_PASSWORD);
+console.log(process.env.POSTGRES_HOST);
 const sequelizeInstance = new Sequelize(
   process.env.POSTGRES_DB,
   process.env.POSTGRES_USER,

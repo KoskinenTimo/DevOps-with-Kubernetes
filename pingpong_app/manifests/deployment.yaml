@@ -2,7 +2,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: pingpong-app-dep
-  namespace: todo-namespace
+  # namespace: todo-namespace
 spec:
   replicas: 1
   selector:
@@ -10,14 +10,14 @@ spec:
       app: pingpong-app
   template:
     metadata:
-      namespace: todo-namespace
+      # namespace: todo-namespace
       labels:
         app: pingpong-app
     spec:
       containers:
         - name: pingpong-app
-          image: koskinentht/pingpong-app:v1.1
-          imagePullPolicy: "Always"
+          image: koskinentht/pingpong-app:v1.2
+          imagePullPolicy: "Always"          
           env:
             - name: POSTGRES_HOST
               valueFrom:
